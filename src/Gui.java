@@ -39,25 +39,38 @@ public class Gui extends PApplet{
     }
 
     public void drawPetriNet(){
-        drawPlaces();
-    }
 
-    public void drawPlaces(){
-        ArrayList<Place> places = new ArrayList<>();
-        int space = 100;
+        int xPos = 100;
+        int yPos = height/2;
 
-        for(int i = 0; i < pn.getPlaces().size(); i++){
-            places.add(i, pn.getPlaces().get(i));
-            fill(255);
-            ellipse(100 + i * space , height/2, 50, 50);
-            if(places.get(i).getTokens() > 0){
-                textSize(20);
+        ArrayList<Place> places = new ArrayList<>(pn.getPlaces());
+        ArrayList<Transition> transitions = new ArrayList<>(pn.getTransitions());
+
+
+        for(int i = 0; i < pn.getArcs().size(); i++){
+            if(places.contains(pn.getArcs().get(i).place)){
+                fill(255);
+                ellipse(xPos, yPos, 30,30);
+
                 fill(0);
-                text(Integer.toString(places.get(i).getTokens() ) , 100 + i * space, height/2);
+                text(Integer.toString(pn.getArcs().get(i).place.getTokens()), xPos - 10, yPos);
+
+                places.remove(pn.getArcs().get(i).place);
+
+                xPos += 50;
+            }
+
+
+
+            if(transitions.contains(pn.getArcs().get(i).transition)){
+                fill(255);
+                rect(xPos, yPos - 15, 15,30);
+
+                transitions.remove(pn.getArcs().get(i).transition);
+
+                xPos += 70;
             }
 
         }
-
     }
-
 }
