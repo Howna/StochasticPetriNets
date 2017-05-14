@@ -37,8 +37,8 @@ extends PetrinetObject {
         return list;
     }
     
-    public Transition transition(String name) {
-        Transition t = new Transition(name);
+    public Transition transition(String name,double rate) {
+        Transition t = new Transition(name,rate);
         transitions.add(t);
         return t;
     }
