@@ -4,13 +4,29 @@ import java.util.List;
 public class Transition
 extends PetrinetObject{
 
-    protected Transition(String name) {
+    protected Transition(String name, double rate) {
         super(name);
+        this.rate = rate;
+        this.delayTime = -rate*Math.log(Math.random());
     }
 
     private List<Arc> incoming = new ArrayList<Arc>();
-    private List<Arc> outgoing = new ArrayList<Arc>();
-
+    private List<Arc> outgoing = new ArrayList<Arc>();   
+    private double rate;                       
+    private double delayTime;
+    
+    public double getRate() {
+        return rate;
+    }
+                
+    public double getDelayTime(){
+        return this.delayTime;
+    }
+    
+    public void setDelayTime(double rate){
+        this.delayTime = -rate*Math.log(Math.random());
+    }
+    
     public boolean canFire() {
         boolean canFire = true;
 
