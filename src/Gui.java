@@ -14,8 +14,8 @@ public class Gui extends PApplet{
     private static Petrinet pn = new Petrinet("PetriNet");
     
     public static void main(String[] args) {
-        
-        PApplet.main("Gui");
+
+        PApplet.main("Gui", args);
         
         Transition t1 = pn.transition("t1",2);
         Transition t2 = pn.transition("t2",1.5);
@@ -29,6 +29,7 @@ public class Gui extends PApplet{
         Arc a4 = pn.arc("a4", t2, p1);
 
         //test
+        /*
         try {
             System.out.println("Examples of fires");                
             t1.setDelayTime(t1.getRate());
@@ -41,7 +42,16 @@ public class Gui extends PApplet{
             System.out.println("Fire 2");
         } catch (InterruptedException ex) {
             Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
-        }                
+        }
+        */
+
+
+        for(int i = 0; i < pn.getArcs().size(); i++){
+            System.out.println(pn.getArcs().get(i).place);
+            System.out.println(pn.getArcs().get(i).transition);
+            System.out.println(pn.getArcs().get(i).direction);
+            System.out.println("-------");
+        }
                 
     }
     
@@ -55,43 +65,14 @@ public class Gui extends PApplet{
     }
 
     public void draw(){
-        drawPetriNet();
+        //drawPetriNet();
     }
 
     public void drawPetriNet(){
 
-        int xPos = 100;
-        int yPos = height/2;
-
         ArrayList<Place> places = new ArrayList<>(pn.getPlaces());
         ArrayList<Transition> transitions = new ArrayList<>(pn.getTransitions());
 
-
-        for(int i = 0; i < pn.getArcs().size(); i++){
-            if(places.contains(pn.getArcs().get(i).place)){
-                fill(255);
-                ellipse(xPos, yPos, 30,30);
-
-                fill(0);
-                text(Integer.toString(pn.getArcs().get(i).place.getTokens()), xPos - 10, yPos);
-
-                places.remove(pn.getArcs().get(i).place);
-
-                xPos += 50;
-            }
-
-
-
-            if(transitions.contains(pn.getArcs().get(i).transition)){
-                fill(255);
-                rect(xPos, yPos - 15, 15,30);
-
-                transitions.remove(pn.getArcs().get(i).transition);
-
-                xPos += 70;
-            }
-
-        }
     }
     
 }

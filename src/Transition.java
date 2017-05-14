@@ -4,16 +4,19 @@ import java.util.List;
 public class Transition
 extends PetrinetObject{
 
-    protected Transition(String name, double rate) {
+    private List<Arc> incoming = new ArrayList<Arc>();
+    private List<Arc> outgoing = new ArrayList<Arc>();
+    private double rate;
+    private double delayTime;
+    public int lvl;
+    public Place connectedTo;
+
+    protected Transition(String name, double rate, int lvl) {
         super(name);
         this.rate = rate;
         this.delayTime = -rate*Math.log(Math.random());
+        this.lvl = lvl;
     }
-
-    private List<Arc> incoming = new ArrayList<Arc>();
-    private List<Arc> outgoing = new ArrayList<Arc>();   
-    private double rate;                       
-    private double delayTime;
     
     public double getRate() {
         return rate;

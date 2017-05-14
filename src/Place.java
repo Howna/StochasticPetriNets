@@ -5,15 +5,19 @@ extends PetrinetObject {
     
     private int tokens = 0;
     private int maxTokens = UNLIMITED;
+    public int lvl;
+    public Transition connectedTo;
     
 
-    protected Place(String name) {
+    protected Place(String name, int lvl) {
         super(name);
+        this.lvl = lvl;
     }
 
-    protected Place(String name, int initial) {
-        this(name);
+    protected Place(String name, int initial, int lvl) {
+        super(name);
         this.tokens = initial;
+        this.lvl = lvl;
     }
 
     public boolean hasAtLeastTokens(int threshold) {
