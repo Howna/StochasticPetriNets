@@ -11,6 +11,7 @@ extends PetrinetObject {
     public float outX;
     public float outY;
     public Transition connectedTo;
+    public Transition connectedFrom;
     
 
     protected Place(String name, int lvl) {

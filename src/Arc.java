@@ -49,12 +49,14 @@ extends PetrinetObject {
     protected Arc(String name, Place p, Transition t) {
         this(name, Direction.PLACE_TO_TRANSITION, p, t);
         p.connectedTo = t;
+        t.connectedFrom = p;
         t.addIncoming(this);
     }
 
     protected Arc(String name, Transition t, Place p) {
         this(name, Direction.TRANSITION_TO_PLACE, p, t);
         t.connectedTo = p;
+        p.connectedFrom = t;
         t.addOutgoing(this);
     }
 

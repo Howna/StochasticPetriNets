@@ -14,6 +14,7 @@ extends PetrinetObject{
     public float outX;
     public float outY;
     public Place connectedTo;
+    public Place connectedFrom;
 
     protected Transition(String name, double rate, int lvl) {
         super(name);
