@@ -9,6 +9,10 @@ extends PetrinetObject{
     private double rate;
     private double delayTime;
     public int lvl;
+    public float inX;
+    public float inY;
+    public float outX;
+    public float outY;
     public Place connectedTo;
 
     protected Transition(String name, double rate, int lvl) {

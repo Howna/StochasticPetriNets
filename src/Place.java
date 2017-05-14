@@ -6,6 +6,10 @@ extends PetrinetObject {
     private int tokens = 0;
     private int maxTokens = UNLIMITED;
     public int lvl;
+    public float inX;
+    public float inY;
+    public float outX;
+    public float outY;
     public Transition connectedTo;
     
 
