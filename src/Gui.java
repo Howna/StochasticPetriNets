@@ -21,6 +21,8 @@ public class Gui extends PApplet{
 
     Petrinet pn = new Petrinet("PetriNet");
 
+    /*
+    //Test case 1
     Transition t1 = pn.transition("t1",2, 1);
     Transition t2 = pn.transition("t2",1.5, 1);
     Transition t3 = pn.transition("t3",1.5, 2);
@@ -38,8 +40,44 @@ public class Gui extends PApplet{
     Arc a6 = pn.arc("a6", p3, t3);
     Arc a7 = pn.arc("a7", t3, p1);
     Arc a8 = pn.arc("a8", t3, p2);
+    */
 
+    /*
+    //Test case 2
+    Transition t1 = pn.transition("t1",2, 1);
+    Transition t2 = pn.transition("t2",1.5, 1);
+    Transition t3 = pn.transition("t3",1.5, 2);
 
+    Place p1 = pn.place("p1", 1, 1);
+    Place p2 = pn.place("p2", 1, 1);
+    Place p3 = pn.place("p3", 1);
+    Place p4 = pn.place("p4", 2);
+    Place p5 = pn.place("p5", 2);
+
+    Arc a1 = pn.arc("a1", p1, t1);
+    Arc a2 = pn.arc("a2", p2, t2);
+    Arc a3 = pn.arc("a3", p3, t2);
+    Arc a4 = pn.arc("a4", t1, p4);
+    Arc a5 = pn.arc("a5", t1, p5);
+    Arc a6 = pn.arc("a6", t2, p4);
+    Arc a7 = pn.arc("a7", p4, t3);
+    Arc a8 = pn.arc("a8", t3, p1);
+    Arc a9 = pn.arc("a9", t3, p2);
+    */
+
+    /*
+    //Test case 3
+    Place p1 = pn.place("p1", 1, 1);
+    Place p2 = pn.place("p2", 2);
+
+    Transition t1 = pn.transition("t1", 2, 1);
+    Transition t2 = pn.transition("t2",1.5, 2);
+
+    Arc a1 = pn.arc("a1", p1, t1);
+    Arc a2 = pn.arc("a2", t1, p2);
+    Arc a3 = pn.arc("a3", p2, t2);
+    Arc a4 = pn.arc("a4", t2, p1);
+    */
 
     //test
     /*
@@ -61,9 +99,9 @@ public class Gui extends PApplet{
 
     //------------------------- Processing ---------------------------//
 
-    ArrayList<Place> places;
-    ArrayList<Transition> transitions;
-    ArrayList<Arc> arcs;
+    private ArrayList<Place> places;
+    private ArrayList<Transition> transitions;
+    private ArrayList<Arc> arcs;
 
     public void settings(){
         size(500,500);
@@ -91,55 +129,65 @@ public class Gui extends PApplet{
             //Check all places except the last one
             if(i < places.size() - 1 ){
                 //Only one place per lvl
-                if(places.get(i).lvl < places.get(i + 1).lvl && places.get(i - 1).lvl < places.get(i).lvl){
-                    //Position first lvl
-                    if(i == 0){
+                if(i == 0){
+                    if(places.get(i).lvl < places.get(i + 1).lvl){
+                        //Position first lvl
                         places.get(i).inX = 100;
                         places.get(i).inY = height/2;
                         places.get(i).outX = places.get(i).inX + 30;
                         places.get(i).outY = places.get(i).inY;
                     }
-                    //Position of other lvls base on the Pos of previous lvl
+                    //More than one place per lvl
                     else{
-                        places.get(i).inX = places.get(i).connectedFrom.outX + 40;
-                        places.get(i).inY = places.get(i).connectedFrom.outY;
-                        places.get(i).outX = places.get(i).inX + 30;
-                        places.get(i).outY = places.get(i).inY;
-                    }
-                }
-                //More than one place per lvl
-                else{
-                    if(places.get(i).lvl == places.get(i + 1).lvl){
-                        if(i == 0){
+                        if(places.get(i).lvl == places.get(i + 1).lvl){
                             places.get(i).inX = 100;
                             places.get(i).inY = height/6;
                             places.get(i).outX = places.get(i).inX + 30;
                             places.get(i).outY = places.get(i).inY;
                             places.get(i + 1).inX = places.get(i).inX;
-                            places.get(i + 1).inY = places.get(i).inY + 40;
-                            places.get(i + 1).outX = places.get(i + 1).inX + 30;
-                            places.get(i + 1).outY = places.get(i + 1).inY;
-                        }
-                        //Position of other lvls base on the Pos of previous lvl
-                        else{
-                            places.get(i).inX = places.get(i).connectedFrom.outX + 40;
-                            places.get(i).inY = places.get(i).connectedFrom.outY;
-                            places.get(i).outX = places.get(i).inX + 30;
-                            places.get(i).outY = places.get(i).inY;
-                            places.get(i + 1).inX = places.get(i).inX;
-                            places.get(i + 1).inY = places.get(i).inY + 40;
+                            places.get(i + 1).inY = places.get(i).inY + 50;
                             places.get(i + 1).outX = places.get(i + 1).inX + 30;
                             places.get(i + 1).outY = places.get(i + 1).inY;
                         }
                     }
-
+                }
+                else{
+                    if(places.get(i).lvl < places.get(i + 1).lvl && places.get(i - 1).lvl < places.get(i).lvl){
+                        //Position first lvl
+                        places.get(i).inX = places.get(i).connectedFrom.outX + 50;
+                        places.get(i).inY = places.get(i).connectedFrom.outY;
+                        places.get(i).outX = places.get(i).inX + 30;
+                        places.get(i).outY = places.get(i).inY;
+                    }
+                    //More than one place per lvl
+                    else{
+                        if(places.get(i).lvl == places.get(i + 1).lvl){
+                            if(places.get(i - 1).lvl == places.get(i).lvl){
+                                places.get(i + 1).inX = places.get(i).inX;
+                                places.get(i + 1).inY = places.get(i).inY + 50;
+                                places.get(i + 1).outX = places.get(i + 1).inX + 30;
+                                places.get(i + 1).outY = places.get(i + 1).inY;
+                            }
+                            else{
+                                //Position of other lvls base on the Pos of previous lvl
+                                places.get(i).inX = places.get(i).connectedFrom.outX + 50;
+                                places.get(i).inY = places.get(i).connectedFrom.outY;
+                                places.get(i).outX = places.get(i).inX + 30;
+                                places.get(i).outY = places.get(i).inY;
+                                places.get(i + 1).inX = places.get(i).inX;
+                                places.get(i + 1).inY = places.get(i).inY + 50;
+                                places.get(i + 1).outX = places.get(i + 1).inX + 30;
+                                places.get(i + 1).outY = places.get(i + 1).inY;
+                            }
+                        }
+                    }
                 }
             }
             //Check last place
             else{
                 //Only one place per lvl
                 if(places.get(i).lvl > places.get(i - 1).lvl){
-                    places.get(i).inX = places.get(i).connectedFrom.outX + 40;
+                    places.get(i).inX = places.get(i).connectedFrom.outX + 50;
                     places.get(i).inY = places.get(i).connectedFrom.outY;
                     places.get(i).outX = places.get(i).inX + 30;
                     places.get(i).outY = places.get(i).inY;
@@ -148,7 +196,7 @@ public class Gui extends PApplet{
                 else{
                     if(places.get(i).lvl == places.get(i - 1).lvl){
                         places.get(i).inX = places.get(i - 1).inX;
-                        places.get(i).inY = places.get(i - 1).inY + 40;
+                        places.get(i).inY = places.get(i - 1).inY + 50;
                         places.get(i).outX = places.get(i).inX + 30;
                         places.get(i).outY = places.get(i).inY;
                     }
@@ -161,23 +209,46 @@ public class Gui extends PApplet{
                 if(j < transitions.size() - 1){
                     //Transition goes after the place
                     if(transitions.get(j).lvl == places.get(i).lvl){
-                        if(transitions.get(j).lvl < transitions.get(j + 1).lvl){
-                            transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 40;
-                            transitions.get(j).inY =  transitions.get(j).connectedFrom.outY;
-                            transitions.get(j).outX = transitions.get(j).inX + 10;
-                            transitions.get(j).outY = transitions.get(j).inY;
-                        }
-                        //More than one transition per lvl
-                        else{
-                            if(transitions.get(j).lvl == transitions.get(j + 1).lvl){
-                                transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 40;
+                        if(j == 0){
+                            if(transitions.get(j).lvl < transitions.get(j + 1).lvl){
+                                transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 50;
                                 transitions.get(j).inY =  transitions.get(j).connectedFrom.outY;
                                 transitions.get(j).outX = transitions.get(j).inX + 10;
                                 transitions.get(j).outY = transitions.get(j).inY;
-                                transitions.get(j + 1).inX =  transitions.get(j).outX;
-                                transitions.get(j + 1).inY =  transitions.get(j).outY + 40;
-                                transitions.get(j + 1).outX = transitions.get(j).inX + 10;
-                                transitions.get(j + 1).outY = transitions.get(j).inY;
+                            }
+                            //More than one transition per lvl
+                            else{
+                                if(transitions.get(j).lvl == transitions.get(j + 1).lvl){
+                                    transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 50;
+                                    transitions.get(j).inY =  transitions.get(j).connectedFrom.outY;
+                                    transitions.get(j).outX = transitions.get(j).inX + 10;
+                                    transitions.get(j).outY = transitions.get(j).inY;
+                                    transitions.get(j + 1).inX =  transitions.get(j).inX;
+                                    transitions.get(j + 1).inY =  transitions.get(j).inY + 50;
+                                    transitions.get(j + 1).outX = transitions.get(j + 1).inX + 10;
+                                    transitions.get(j + 1).outY = transitions.get(j + 1).inY;
+                                }
+                            }
+                        }
+                        else{
+                            if(transitions.get(j).lvl < transitions.get(j + 1).lvl && transitions.get(j - 1).lvl < transitions.get(j).lvl){
+                                transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 50;
+                                transitions.get(j).inY =  transitions.get(j).connectedFrom.outY;
+                                transitions.get(j).outX = transitions.get(j).inX + 10;
+                                transitions.get(j).outY = transitions.get(j).inY;
+                            }
+                            //More than one transition per lvl
+                            else{
+                                if(transitions.get(j).lvl == transitions.get(j + 1).lvl){
+                                    transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 50;
+                                    transitions.get(j).inY =  transitions.get(j).connectedFrom.outY;
+                                    transitions.get(j).outX = transitions.get(j).inX + 10;
+                                    transitions.get(j).outY = transitions.get(j).inY;
+                                    transitions.get(j + 1).inX =  transitions.get(j).inX;
+                                    transitions.get(j + 1).inY =  transitions.get(j).inY + 50;
+                                    transitions.get(j + 1).outX = transitions.get(j + 1).inX + 10;
+                                    transitions.get(j + 1).outY = transitions.get(j + 1).inY;
+                                }
                             }
                         }
                     }
@@ -187,7 +258,7 @@ public class Gui extends PApplet{
                     if(transitions.get(j).lvl == places.get(i).lvl){
                         //Only one transition per lvl
                         if(transitions.get(j).lvl > transitions.get(j - 1).lvl){
-                            transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 40;
+                            transitions.get(j).inX =  transitions.get(j).connectedFrom.outX + 50;
                             transitions.get(j).inY =  transitions.get(j).connectedFrom.outY;
                             transitions.get(j).outX = transitions.get(j).inX + 10;
                             transitions.get(j).outY = transitions.get(j).inY;
@@ -195,7 +266,7 @@ public class Gui extends PApplet{
                         //More than one transition per lvl
                         else{
                             transitions.get(j).inX =  transitions.get(j - 1).outX;
-                            transitions.get(j).inY =  transitions.get(j - 1).outY + 40;
+                            transitions.get(j).inY =  transitions.get(j - 1).outY + 50;
                             transitions.get(j).outX = transitions.get(j).inX + 10;
                             transitions.get(j).outY = transitions.get(j).inY;
                         }
@@ -209,10 +280,16 @@ public class Gui extends PApplet{
             t = arcs.get(i).transition;
             a = arcs.get(i);
 
+            fill(0);
+            textSize(10);
+            text(t.getName(), t.inX , t.inY - 16);
+            text(p.getName(), p.inX + 10, p.inY - 16);
+
             if(a.direction == Arc.Direction.PLACE_TO_TRANSITION){
                 fill(255);
                 ellipse(p.inX + 15, p.inY, 30, 30);
                 drawArrow(p.outX, p.outY, t.inX, t.inY);
+                fill(255);
                 rect(t.inX, t.inY - 15, 10, 30);
             }
             else{
