@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class Gui extends PApplet{
 
     //private static Petrinet pn = new Petrinet("PetriNet");
-    
+
     public static void main(String[] args) {
 
         PApplet.main("Gui", args);
@@ -65,10 +65,10 @@ public class Gui extends PApplet{
     Arc a9 = pn.arc("a9", t3, p2);
     */
 
-    /*
+
     //Test case 3
-    Place p1 = pn.place("p1", 1, 1);
-    Place p2 = pn.place("p2", 2);
+    Place p1 = pn.place("p1", 5, 1);
+    Place p2 = pn.place("p2",2);
 
     Transition t1 = pn.transition("t1", 2, 1);
     Transition t2 = pn.transition("t2",1.5, 2);
@@ -77,24 +77,7 @@ public class Gui extends PApplet{
     Arc a2 = pn.arc("a2", t1, p2);
     Arc a3 = pn.arc("a3", p2, t2);
     Arc a4 = pn.arc("a4", t2, p1);
-    */
 
-    //test
-    /*
-    try {
-        System.out.println("Examples of fires");
-        t1.setDelayTime(t1.getRate());
-        System.out.println("Transition 1 with delay time: "+t1.getDelayTime());
-        Thread.sleep((long)t1.getDelayTime()*1000);
-        System.out.println("Fire 1");
-        t2.setDelayTime(t2.getRate());
-        System.out.println("Transition 2 with delay time: "+t2.getDelayTime());
-        Thread.sleep((long) t2.getDelayTime()*1000);
-        System.out.println("Fire 2");
-    } catch (InterruptedException ex) {
-        Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    */
 
 
     //------------------------- Processing ---------------------------//
@@ -103,16 +86,15 @@ public class Gui extends PApplet{
     private ArrayList<Transition> transitions;
     private ArrayList<Arc> arcs;
 
+
     public void settings(){
         size(500,500);
     }
 
     public void setup(){
-
         places = new ArrayList<>(pn.getPlaces());
         transitions = new ArrayList<>(pn.getTransitions());
         arcs = new ArrayList<>(pn.getArcs());
-
         background(255);
     }
 
@@ -287,8 +269,13 @@ public class Gui extends PApplet{
 
             if(a.direction == Arc.Direction.PLACE_TO_TRANSITION){
                 fill(255);
-                ellipse(p.inX + 15, p.inY, 30, 30);
+                ellipse(p.inX + 15, p.inY, 30, 30);//Place created
+                fill(0);
+                text(Integer.toString(p.getTokens()),p.inX + 12, p.inY + 3);//create tokens
+
                 drawArrow(p.outX, p.outY, t.inX, t.inY);
+                fill(0);
+                text(Integer.toString(a.getWeight()),p.outX + (t.inX - p.outX)/2, p.outY + (t.inY - p.outY)/2 - 2);
                 fill(255);
                 rect(t.inX, t.inY - 15, 10, 30);
             }
@@ -296,7 +283,12 @@ public class Gui extends PApplet{
                 if(t.outX > p.outX){
                     fill(255);
                     drawArrow(t.outX , t.outY, t.outX + 10, t.outY);
-                    ellipse(p.inX + 15, p.inY, 30, 30);
+                    fill(0);
+                    text(Integer.toString(a.getWeight()), t.outX + 12, t.outY - 12);
+                    fill(255);
+                    ellipse(p.inX + 15, p.inY, 30, 30);//Place created
+                    fill(0);
+                    text(Integer.toString(p.getTokens()),p.inX + 12, p.inY + 3);//create tokens
                     fill(255,0,0);
                     ellipse(t.outX + 15 , t.outY, 10, 10);
                     drawArrow(p.inX - 10 , p.inY, p.inX , p.inY);
@@ -305,14 +297,46 @@ public class Gui extends PApplet{
                 else{
                     fill(255);
                     drawArrow(t.outX , t.outY, p.inX , p.inY);
-                    ellipse(p.inX + 15, p.inY, 30, 30);
+                    fill(0);
+                    text(Integer.toString(a.getWeight()),t.outX + (p.inX - t.outX)/2, t.outY + (p.inY - t.outY)/2 - 2);
+                    fill(255);
+                    ellipse(p.inX + 15, p.inY, 30, 30);//Place created
+                    fill(0);
+                    text(Integer.toString(p.getTokens()),p.inX + 12, p.inY + 3);//create tokens
                 }
 
             }
         }
+
+        //Fire
+        for(int i = 0; i < transitions.size(); i++){
+            if(transitions.get(i).canFire()){
+                fill(0, 255, 0);
+                rect(transitions.get(i).inX + 3, transitions.get(i).inY + 17, 5, 5);
+            }
+            else{
+                fill(255, 0, 0);
+                rect(transitions.get(i).inX + 3, transitions.get(i).inY + 17, 5, 5);
+            }
+        }
     }
 
-    void drawArrow(float x1, float y1, float x2, float y2) {
+    public void fireTransition(){
+        for(int i = 0; i < transitions.size(); i++){
+            if(transitions.get(i).canFire()){
+                transitions.get(i).fire();
+            }
+        }
+    }
+
+    public void mousePressed() {
+
+    }
+
+
+
+
+    public void drawArrow(float x1, float y1, float x2, float y2) {
         float a = 2;
         pushMatrix();
         translate(x2, y2);
@@ -321,5 +345,5 @@ public class Gui extends PApplet{
         popMatrix();
         line(x1, y1, x2, y2);
     }
-    
+
 }
