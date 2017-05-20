@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Place
 extends PetrinetObject {
 
@@ -7,15 +9,24 @@ extends PetrinetObject {
     
     private int tokens = 0;
     private int maxTokens = UNLIMITED;
-    
+    public int lvl;
+    public float inX;
+    public float inY;
+    public float outX;
+    public float outY;
+    public ArrayList<Transition> connectedTo = new ArrayList<>();
+    public ArrayList<Transition> connectedFrom = new ArrayList<>();
 
-    protected Place(String name) {
+
+    protected Place(String name, int lvl) {
         super(name);
+        this.lvl = lvl;
     }
 
-    protected Place(String name, int initial) {
-        this(name);
+    protected Place(String name, int initial, int lvl) {
+        super(name);
         this.tokens = initial;
+        this.lvl = lvl;
     }
 
     public boolean hasAtLeastTokens(int threshold) {

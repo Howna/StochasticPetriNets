@@ -1,10 +1,5 @@
 package Model;
 
-/**
- *
- * @author Edwin
- */
-
 import View.Gui;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -48,21 +43,21 @@ extends PetrinetObject {
         }
         return list;
     }
-    
-    public Transition transition(String name,double rate) {
-        Transition t = new Transition(name,rate);
+
+    public Transition transition(String name,double rate, int lvl) {
+        Transition t = new Transition(name,rate,lvl);
         transitions.add(t);
         return t;
     }
-    
-    public Place place(String name) {
-        Place p = new Place(name);
+
+    public Place place(String name, int lvl) {
+        Place p = new Place(name, lvl);
         places.add(p);
         return p;
     }
-    
-    public Place place(String name, int initial) {
-        Place p = new Place(name, initial);
+
+    public Place place(String name, int initial, int lvl) {
+        Place p = new Place(name, initial, lvl);
         places.add(p);
         return p;
     }

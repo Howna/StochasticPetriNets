@@ -16,6 +16,20 @@ extends PetrinetObject{
     private List<Arc> outgoing = new ArrayList<Arc>();   
     private double rate;                       
     private double delayTime;
+    public int lvl;
+    public float inX;
+    public float inY;
+    public float outX;
+    public float outY;
+    public ArrayList<Place> connectedTo = new ArrayList<>();
+    public ArrayList<Place> connectedFrom = new ArrayList<>();
+
+    protected Transition(String name, double rate, int lvl) {
+        super(name);
+        this.rate = rate;
+        this.delayTime = -rate*Math.log(Math.random());
+        this.lvl = lvl;
+    }
     
     public double getRate() {
         return rate;

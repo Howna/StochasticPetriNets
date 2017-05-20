@@ -8,7 +8,7 @@ extends PetrinetObject {
     public Direction direction;
     public int weight = 1;
     
-    enum Direction {
+    public enum Direction {
         
         PLACE_TO_TRANSITION {
             @Override
@@ -50,11 +50,15 @@ extends PetrinetObject {
 
     protected Arc(String name, Place p, Transition t) {
         this(name, Direction.PLACE_TO_TRANSITION, p, t);
+        p.connectedTo.add(t);
+        t.connectedFrom.add(p);
         t.addIncoming(this);
     }
 
     protected Arc(String name, Transition t, Place p) {
         this(name, Direction.TRANSITION_TO_PLACE, p, t);
+        t.connectedTo.add(p);
+        p.connectedFrom.add(t);
         t.addOutgoing(this);
     }
 
