@@ -17,20 +17,20 @@
 								<t name="t2" num="1" />
 						</salidas>
 				</lugar>
-				<lugar name="p4" marcado="no" num="0">
-						<entradas>
-								<t name="t3" num="1" />
-						</entradas>
-						<salidas>
-								<t name="t5" num="1" />
-						</salidas>
-				</lugar>
 				<lugar name="p3" marcado="no" num="0">
 						<entradas>
 								<t name="t1" num="1" />
 						</entradas>
 						<salidas>
 								<t name="t3" num="1" />
+						</salidas>
+				</lugar>
+				<lugar name="p4" marcado="no" num="0">
+						<entradas>
+								<t name="t3" num="1" />
+						</entradas>
+						<salidas>
+								<t name="t5" num="1" />
 						</salidas>
 				</lugar>
 				<lugar name="p5" marcado="no" num="0">

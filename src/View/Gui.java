@@ -6,6 +6,9 @@ import Model.Place;
 import Model.Petrinet;
 import Model.Transition;
 import processing.core.PApplet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.text.DecimalFormat;
 
 import java.util.ArrayList;
 
@@ -60,11 +63,14 @@ public class Gui extends PApplet{
     private ArrayList<Place> places;
     private ArrayList<Transition> transitions;
     private ArrayList<Arc> arcs;
+    //boolean simulate;
 
     float r ;
     float g ;
     float b ;
 
+    int circleX, circleY, circleColor, circleHighlight;
+    boolean circleOver = false;
 
     public void settings(){
         size(1000,600);
@@ -76,13 +82,28 @@ public class Gui extends PApplet{
         arcs = new ArrayList<>(pn.getArcs());
         background(255);
 
+        for(int i = 0; i < transitions.size(); i++){
+            transitions.get(i).setDelayTime(transitions.get(i).getRate());
+        }
+
         r = random(0,255);
         g = random(0,255);
         b = random(0,255);
+
+        circleColor = color(255);
+        circleHighlight = color(0,255,0);
+        circleX = width - 50;
+        circleY = 50;
+        //simulate = false;
     }
 
     public void draw(){
         drawPetriNet();
+        playButton();
+
+        /*if(simulate){
+            fireTransition();
+        }*/
     }
 
     public void drawPetriNet(){
@@ -119,7 +140,7 @@ public class Gui extends PApplet{
                 else{
                     if(places.get(i).lvl < places.get(i + 1).lvl && places.get(i - 1).lvl < places.get(i).lvl){
                         //Position first lvl
-                        places.get(i).inX = places.get(i).connectedFrom.get(0).outX + 50;
+                        places.get(i).inX = places.get(i).connectedFrom.get(0).outX + 70;
                         places.get(i).inY = places.get(i).connectedFrom.get(0).outY;
                         places.get(i).outX = places.get(i).inX + 30;
                         places.get(i).outY = places.get(i).inY;
@@ -135,7 +156,7 @@ public class Gui extends PApplet{
                             }
                             else{
                                 //Position of other lvls base on the Pos of previous lvl
-                                places.get(i).inX = places.get(i).connectedFrom.get(0).outX + 50;
+                                places.get(i).inX = places.get(i).connectedFrom.get(0).outX + 70;
                                 places.get(i).inY = places.get(i).connectedFrom.get(0).outY;
                                 places.get(i).outX = places.get(i).inX + 30;
                                 places.get(i).outY = places.get(i).inY;
@@ -152,7 +173,7 @@ public class Gui extends PApplet{
             else{
                 //Only one place per lvl
                 if(places.get(i).lvl > places.get(i - 1).lvl){
-                    places.get(i).inX = places.get(i).connectedFrom.get(0).outX + 50;
+                    places.get(i).inX = places.get(i).connectedFrom.get(0).outX + 70;
                     places.get(i).inY = places.get(i).connectedFrom.get(0).outY;
                     places.get(i).outX = places.get(i).inX + 30;
                     places.get(i).outY = places.get(i).inY;
@@ -176,7 +197,7 @@ public class Gui extends PApplet{
                     if(transitions.get(j).lvl == places.get(i).lvl){
                         if(j == 0){
                             if(transitions.get(j).lvl < transitions.get(j + 1).lvl){
-                                transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 50;
+                                transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 70;
                                 transitions.get(j).inY =  transitions.get(j).connectedFrom.get(0).outY;
                                 transitions.get(j).outX = transitions.get(j).inX + 10;
                                 transitions.get(j).outY = transitions.get(j).inY;
@@ -184,7 +205,7 @@ public class Gui extends PApplet{
                             //More than one transition per lvl
                             else{
                                 if(transitions.get(j).lvl == transitions.get(j + 1).lvl){
-                                    transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 50;
+                                    transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 70;
                                     transitions.get(j).inY =  transitions.get(j).connectedFrom.get(0).outY;
                                     transitions.get(j).outX = transitions.get(j).inX + 10;
                                     transitions.get(j).outY = transitions.get(j).inY;
@@ -197,7 +218,7 @@ public class Gui extends PApplet{
                         }
                         else{
                             if(transitions.get(j).lvl < transitions.get(j + 1).lvl && transitions.get(j - 1).lvl < transitions.get(j).lvl){
-                                transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 50;
+                                transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 70;
                                 transitions.get(j).inY =  transitions.get(j).connectedFrom.get(0).outY;
                                 transitions.get(j).outX = transitions.get(j).inX + 10;
                                 transitions.get(j).outY = transitions.get(j).inY;
@@ -205,7 +226,7 @@ public class Gui extends PApplet{
                             //More than one transition per lvl
                             else{
                                 if(transitions.get(j).lvl == transitions.get(j + 1).lvl){
-                                    transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 50;
+                                    transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 70;
                                     transitions.get(j).inY =  transitions.get(j).connectedFrom.get(0).outY;
                                     transitions.get(j).outX = transitions.get(j).inX + 10;
                                     transitions.get(j).outY = transitions.get(j).inY;
@@ -223,14 +244,14 @@ public class Gui extends PApplet{
                     if(transitions.get(j).lvl == places.get(i).lvl){
                         //Only one transition per lvl
                         if(transitions.size() == 1){
-                            transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 50;
+                            transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 70;
                             transitions.get(j).inY =  transitions.get(j).connectedFrom.get(0).outY;
                             transitions.get(j).outX = transitions.get(j).inX + 10;
                             transitions.get(j).outY = transitions.get(j).inY;
                         }
                         else{
                             if(transitions.get(j).lvl > transitions.get(j - 1).lvl){
-                                transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 50;
+                                transitions.get(j).inX =  transitions.get(j).connectedFrom.get(0).outX + 70;
                                 transitions.get(j).inY =  transitions.get(j).connectedFrom.get(0).outY;
                                 transitions.get(j).outX = transitions.get(j).inX + 10;
                                 transitions.get(j).outY = transitions.get(j).inY;
@@ -267,8 +288,12 @@ public class Gui extends PApplet{
                 drawArrow(p.outX, p.outY, t.inX, t.inY);
                 fill(0);
                 text(Integer.toString(a.getWeight()),p.outX + (t.inX - p.outX)/2, p.outY + (t.inY - p.outY)/2 - 2);
+                text("r: " + Double.toString(t.getRate()), t.inX - 10, t.inY + 35);
+                textSize(8);
+                text("t: " + new DecimalFormat("#.###").format(t.getDelayTime()), t.inX - 10, t.inY + 45);
                 fill(255);
                 rect(t.inX, t.inY - 15, 10, 30);
+
             }
             else{
                 if(t.outX > p.outX){
@@ -328,18 +353,108 @@ public class Gui extends PApplet{
     }
 
     public void fireTransition(){
+
+        //simulate = false;
+
+        ArrayList<Transition> fireableTransitions = new ArrayList<>();
+
         for(int i = 0; i < transitions.size(); i++){
-            if(transitions.get(i).canFire()){
-                transitions.get(i).fire();
+
+            if(transitions.get(i).canFire()) {
+                fireableTransitions.add(transitions.get(i));
             }
+
+            if(i == transitions.size() - 1){
+
+                ArrayList<Transition> sortedT = new ArrayList<>();
+
+                //sort transitions in shooting order
+                for(int t = 0; t < fireableTransitions.size(); t++){
+                    if(t == 0){
+                        sortedT.add(fireableTransitions.get(t));
+                    }
+                    else{
+                        for(int j = 0; j < sortedT.size(); j++){
+                            if( fireableTransitions.get(t).getDelayTime() < sortedT.get(j).getDelayTime() ){
+                                sortedT.add(j, fireableTransitions.get(t));
+                                break;
+                            }
+                            else{
+                                if(j == sortedT.size() - 1){
+                                    sortedT.add(fireableTransitions.get(t));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for(int k = 0; k < sortedT.size(); k++){
+                    if(sortedT.get(k).canFire()){
+                        sortedT.get(k).fire();
+                    }
+                }
+            }
+
+
+
+                /*
+                try {
+                    transitions.get(i).setDelayTime(transitions.get(i).getRate());
+                    Thread.sleep((long)transitions.get(i).getDelayTime()*1000);
+                    System.out.println("Disparo transicion: " + transitions.get(i).getName());
+                    transitions.get(i).fire();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                */
+
         }
     }
 
     public void mousePressed() {
+        /*if (circleOver) {
+            if(simulate == false){
+                System.out.println("Simulacion iniciada");
+                simulate = true;
+            }
+            else{
+                System.out.println("Simulacion detenida");
+                simulate = false;
+            }
 
+        }*/
+        if (circleOver) {fireTransition();}
     }
 
+    public void playButton(){
+        update(mouseX, mouseY);
+        if (circleOver) {
+            fill(circleHighlight);
+        } else {
+            fill(circleColor);
+        }
+        ellipse(width - 50, 50, 50,50);
+    }
 
+    public boolean overCircle(int x, int y, int diameter) {
+        float disX = x - mouseX;
+        float disY = y - mouseY;
+        if (sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    void update(int x, int y) {
+        if ( overCircle(circleX, circleY, 50) ) {
+            circleOver = true;
+        }
+        else {
+            circleOver = false;
+        }
+    }
 
 
     public void drawArrow(float x1, float y1, float x2, float y2) {
