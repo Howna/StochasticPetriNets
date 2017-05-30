@@ -98,6 +98,7 @@ public class Gui extends PApplet{
     }
 
     public void draw(){
+        background(255);
         drawPetriNet();
         playButton();
 
@@ -389,25 +390,20 @@ public class Gui extends PApplet{
                     }
                 }
 
-                for(int k = 0; k < sortedT.size(); k++){
-                    if(sortedT.get(k).canFire()){
-                        sortedT.get(k).fire();
-                    }
+                //for(int k = 0; k < sortedT.size(); k++){
+                    //if(sortedT.get(k).canFire()){
+                        //sortedT.get(k).fire();
+                    //}
+                //}
+                sortedT.get(0).fire();
+
+                for(int k = 0; k < transitions.size(); k++){
+                    transitions.get(k).setDelayTime(transitions.get(k).getRate());
                 }
+
+
             }
 
-
-
-                /*
-                try {
-                    transitions.get(i).setDelayTime(transitions.get(i).getRate());
-                    Thread.sleep((long)transitions.get(i).getDelayTime()*1000);
-                    System.out.println("Disparo transicion: " + transitions.get(i).getName());
-                    transitions.get(i).fire();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                */
 
         }
     }
