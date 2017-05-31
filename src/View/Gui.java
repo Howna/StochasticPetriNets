@@ -60,6 +60,8 @@ public class Gui extends PApplet{
 
     //------------------------- Processing ---------------------------//
 
+    //Stocasthic petri net drawing and animation
+
     private ArrayList<Place> places;
     private ArrayList<Transition> transitions;
     private ArrayList<Arc> arcs;
@@ -390,12 +392,12 @@ public class Gui extends PApplet{
                     }
                 }
 
-                //for(int k = 0; k < sortedT.size(); k++){
-                    //if(sortedT.get(k).canFire()){
-                        //sortedT.get(k).fire();
+                //for(int l = 0; l < sortedT.size(); l++){
+                    //if(sortedT.get(l).canFire()){
+                        //sortedT.get(l).fire();
                     //}
                 //}
-                sortedT.get(0).fire();
+               sortedT.get(0).fire();
 
                 for(int k = 0; k < transitions.size(); k++){
                     transitions.get(k).setDelayTime(transitions.get(k).getRate());

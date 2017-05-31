@@ -2,13 +2,18 @@ package Model;
 
 import java.util.ArrayList;
 
+/**
+ * Created by kevincastro on 5/12/17.
+ */
+
 public class Place
 extends PetrinetObject {
 
     public static final int UNLIMITED = -1;
     
-    private int tokens = 0;
+    private int tokens = 0;//How many tokens inside the place
     private int maxTokens = UNLIMITED;
+    //For drawing purposes
     public int lvl;
     public float inX;
     public float inY;
@@ -16,7 +21,7 @@ extends PetrinetObject {
     public float outY;
     public ArrayList<Transition> connectedTo = new ArrayList<>();
     public ArrayList<Transition> connectedFrom = new ArrayList<>();
-
+    //
 
     protected Place(String name, int lvl) {
         super(name);

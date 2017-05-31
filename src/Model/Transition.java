@@ -3,6 +3,10 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by kevincastro on 5/12/17.
+ */
+
 public class Transition
 extends PetrinetObject{
 

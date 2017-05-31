@@ -1,13 +1,19 @@
 package Model;
 
+/**
+ * Created by kevincastro on 5/12/17.
+ */
+
+//Arc object
 public class Arc
 extends PetrinetObject {
 
-    public Place place;
-    public Transition transition;
+    public Place place; //Place the arc is connected to/from
+    public Transition transition; //Transition the arc is connected to/from
     public Direction direction;
-    public int weight = 1;
-    
+    public int weight = 1; //How many tokenks each arc consumes
+
+    //Direction of the arc. The arc goes from a transition to a place or the arc goes from a place to a trasition
     public enum Direction {
         
         PLACE_TO_TRANSITION {
@@ -40,7 +46,9 @@ extends PetrinetObject {
 
         public abstract void fire(Place p, int weight);
     }
-    
+
+    //Class constructors
+
     private Arc(String name, Direction d, Place p, Transition t) {
         super(name);
         this.direction = d;
@@ -70,6 +78,7 @@ extends PetrinetObject {
         this.direction.fire(place, this.weight);
     }
 
+    //Set hoy many tokens each arc consumes
     public void setWeight(int weight) {
         this.weight = weight;
     }

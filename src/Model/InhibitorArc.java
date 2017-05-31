@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * Created by kevincastro on 5/12/17.
+ */
+
 public class InhibitorArc
 extends Arc {
 
