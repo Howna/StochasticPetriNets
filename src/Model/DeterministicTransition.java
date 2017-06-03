@@ -4,9 +4,10 @@ package Model;
  * 
  * @author Edwin
  */
- 
+
 public final class DeterministicTransition{
-       
+
+//se definen los atributos de una transicion deterministica    
     private String name;
     private boolean active;
     private int num;

@@ -8,6 +8,11 @@ import java.util.ArrayList;
  * @author Edwin
  */ 
 
+/*
+Descripcion:
+En esta clase se definen los elementos del arbol de alcanzabilidad.
+*/
+
 public class Tree {
     
     private final int increaseLevel=50;

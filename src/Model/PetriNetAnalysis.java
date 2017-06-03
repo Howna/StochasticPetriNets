@@ -6,6 +6,12 @@ package Model;
  * @author Edwin
  */
 
+/*
+Descripcion:
+En esta clase se implementan los metodos que permitiran analizar la red de Petri estocastica.
+Con este analisis se identifican los elementos que componen la red y las matrices asociadas a esta.
+*/
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import java.io.File;

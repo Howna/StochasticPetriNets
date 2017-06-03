@@ -3,7 +3,6 @@ package View;
 
 import Model.Tree;
 import java.awt.BorderLayout;
-import java.awt.Label;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -22,12 +21,12 @@ public class ResultsWindow extends JFrame{
     public ResultsWindow(){
         setTitle("Resultados - Red de Petri Estocastica");
         setSize(1100,600);        
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);       
+        setLocationRelativeTo(null);        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);    
     }    
     
     public void showResultsWindow( StringBuffer results , Tree reachabilityTree ){        
-        textareaResults = new JTextArea(35,35);               
+        textareaResults = new JTextArea(35,35);             
         textareaResults.append("RESULTADOS:\n\n"+results.toString());                        
         scrollpane = new JScrollPane(textareaResults);           
         treePanel = new TreePanel();                

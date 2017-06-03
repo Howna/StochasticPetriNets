@@ -6,10 +6,7 @@ import Model.Place;
 import Model.Petrinet;
 import Model.Transition;
 import processing.core.PApplet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 
 /**
@@ -19,45 +16,26 @@ import java.util.ArrayList;
 public class Gui extends PApplet{
 
     private static Petrinet pn = new Petrinet("PetriNet");
-
-
-    Transition t1 = pn.transition("t1",2, 1);
-    Transition t2 = pn.transition("t2",1.5, 2);
-    Transition t3 = pn.transition("t3",1.2, 2);
-    Transition t4 = pn.transition("t4",1, 3);
-    Transition t5 = pn.transition("t5",2.1, 3);
-    Place p1 = pn.place("p1", 1, 1);
-    Place p2 = pn.place("p2", 2);
-    Place p3 = pn.place("p3", 2);
-    Place p4 = pn.place("p4", 3);
-    Place p5 = pn.place("p5", 3);
-    Arc a1 = pn.arc("a1", p1, t1);
-    Arc a2 = pn.arc("a2", t1, p3);
-    Arc a3 = pn.arc("a3", p3, t3);
-    Arc a4 = pn.arc("a4", t3, p4);
-    Arc a5 = pn.arc("a5", p4, t5);
-    Arc a6 = pn.arc("a6", t5, p1);
-    Arc a7 = pn.arc("a7", t1, p2);
-    Arc a8 = pn.arc("a8", p2, t2);
-    Arc a9 = pn.arc("a9", t2, p5);
-    Arc a10 = pn.arc("a10", p5, t5);
-    Arc a11 = pn.arc("a11", p5, t4);
-    Arc a12 = pn.arc("a12", t4, p2);
-
-
-
-    public static void main(String[] args) {
-        
-        PApplet.main("View.Gui",args);
-
+   
+    public static void startSimulation(Petrinet petriNet){
+        pn = petriNet;        
+        PApplet.main("View.Gui");        
+    }
+    
+    public static void paintReachabilityTree(Petrinet petriNet){
+        pn = petriNet;
         Petrinet.createPetriNet(pn);
         PetriNetAnalysis pna = new PetriNetAnalysis();
         StringBuffer results = pna.analyzePetriNet();
         pna.createReachabilityTree();
         new ResultsWindow().showResultsWindow(results,pna.getReachabilityTree());
-
     }
-
+    
+    public static void main(String[] args){
+        
+        new MainWindow().setVisible(true);            
+        
+    }
     //------------------------- Processing ---------------------------//
 
     //Stocasthic petri net drawing and animation

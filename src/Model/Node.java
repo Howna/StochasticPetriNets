@@ -1,12 +1,16 @@
 package Model;
 
-
 import java.util.ArrayList;
 
 /**
  *
  * @author Edwin
  */
+
+/*
+Descripcion:
+En esta clase se define el contenido que tendra cada nodo del arbol de alcanzabilidad.
+*/
 
 public class Node {    
     

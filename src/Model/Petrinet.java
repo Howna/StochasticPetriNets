@@ -62,6 +62,22 @@ extends PetrinetObject {
         return p;
     }
     
+    public Place getPlace( String namePlace ){   
+        for (Place place : places) {
+            if( place.getName().toLowerCase().equals(namePlace) )
+                return place;
+        }
+        return null;
+    }
+    
+    public Transition getTransition( String nameTransition ){   
+        for (Transition transition : transitions) {
+            if( transition.getName().toLowerCase().equals(nameTransition) )
+                return transition;
+        }
+        return null;
+    }
+    
     public Arc arc(String name, Place p, Transition t) {
         Arc arc = new Arc(name, p, t);
         arcs.add(arc);
@@ -115,22 +131,22 @@ extends PetrinetObject {
         String xml = "<RedPetri>\n\t\t<lugares>\n";
         String nametransition;
         for (int i = 0; i < pn.places.size(); i++) {
-            xml += "\t\t\t\t<lugar name=\""+pn.getPlaces().get(i).getName()+
-                    "\" marcado=\""+(pn.getPlaces().get(i).getTokens()!=0 ? "si" : "no" )+
+            xml += "\t\t\t\t<lugar name="+pn.getPlaces().get(i).getName()+
+                    " marcado=\""+(pn.getPlaces().get(i).getTokens()!=0 ? "si" : "no" )+
                     "\" num=\""+pn.getPlaces().get(i).getTokens()+"\">\n";
             xml += "\t\t\t\t\t\t<entradas>\n";
             for ( Arc ar : pn.getArcs() ) {
                 if( ar.place.getName() == pn.getPlaces().get(i).getName() && ar.direction.name() == "TRANSITION_TO_PLACE" ){
-                    nametransition = ar.transition.getName().substring(0, 2);
-                    xml += "\t\t\t\t\t\t\t\t<t name=\""+nametransition+"\" num=\""+1+"\" />\n";                    
+                    nametransition = ar.transition.getName().substring(0, 4);
+                    xml += "\t\t\t\t\t\t\t\t<t name="+nametransition+" num=\""+1+"\" />\n";                    
                 } 
             }                    
             xml += "\t\t\t\t\t\t</entradas>\n";            
             xml += "\t\t\t\t\t\t<salidas>\n";
             for ( Arc ar : pn.getArcs() ) {
                 if( ar.place.getName() == pn.getPlaces().get(i).getName() && ar.direction.name() == "PLACE_TO_TRANSITION" ){
-                    nametransition = ar.transition.getName().substring(0, 2);
-                    xml += "\t\t\t\t\t\t\t\t<t name=\""+nametransition+"\" num=\""+1+"\" />\n";                    
+                    nametransition = ar.transition.getName().substring(0, 4);
+                    xml += "\t\t\t\t\t\t\t\t<t name="+nametransition+" num=\""+1+"\" />\n";                    
                 }
             }                    
             xml += "\t\t\t\t\t\t</salidas>\n";

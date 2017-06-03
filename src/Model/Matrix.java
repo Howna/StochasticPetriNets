@@ -1,13 +1,18 @@
 package Model;
 
-
 /**
  * 
  * @author Edwin
  */
 
-public class Matrix {
+/*
+Descripcion:
+En esta clase se implementan los metodos para el procesamiento de matrices que permitiran hallar la matriz
+de incidencia posterior y la matriz de incidencia previa de la red de Petri.
+*/
 
+public class Matrix {    
+    
     public void printMatrix(int[][] matrix) {
         if (matrix == null) {
             System.out.println("Empty matrix");
