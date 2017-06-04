@@ -345,46 +345,46 @@ public class Gui extends PApplet{
                 fireableTransitions.add(transitions.get(i));
             }
 
-            if(i == transitions.size() - 1){
+            if(fireableTransitions.size() > 0) {
+                if(i == transitions.size() - 1){
 
-                ArrayList<Transition> sortedT = new ArrayList<>();
+                    ArrayList<Transition> sortedT = new ArrayList<>();
 
-                //sort transitions in shooting order
-                for(int t = 0; t < fireableTransitions.size(); t++){
-                    if(t == 0){
-                        sortedT.add(fireableTransitions.get(t));
-                    }
-                    else{
-                        for(int j = 0; j < sortedT.size(); j++){
-                            if( fireableTransitions.get(t).getDelayTime() < sortedT.get(j).getDelayTime() ){
-                                sortedT.add(j, fireableTransitions.get(t));
-                                break;
-                            }
-                            else{
-                                if(j == sortedT.size() - 1){
-                                    sortedT.add(fireableTransitions.get(t));
+                    //sort transitions in shooting order
+                    for(int t = 0; t < fireableTransitions.size(); t++){
+                        if(t == 0){
+                            sortedT.add(fireableTransitions.get(t));
+                        }
+                        else{
+                            for(int j = 0; j < sortedT.size(); j++){
+                                if( fireableTransitions.get(t).getDelayTime() < sortedT.get(j).getDelayTime() ){
+                                    sortedT.add(j, fireableTransitions.get(t));
                                     break;
+                                }
+                                else{
+                                    if(j == sortedT.size() - 1){
+                                        sortedT.add(fireableTransitions.get(t));
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                //for(int l = 0; l < sortedT.size(); l++){
+                    //for(int l = 0; l < sortedT.size(); l++){
                     //if(sortedT.get(l).canFire()){
-                        //sortedT.get(l).fire();
+                    //sortedT.get(l).fire();
                     //}
-                //}
-               sortedT.get(0).fire();
+                    //}
+                    sortedT.get(0).fire();
 
-                for(int k = 0; k < transitions.size(); k++){
-                    transitions.get(k).setDelayTime(transitions.get(k).getRate());
+                    for(int k = 0; k < transitions.size(); k++){
+                        transitions.get(k).setDelayTime(transitions.get(k).getRate());
+                    }
+
+
                 }
-
-
             }
-
-
         }
     }
 
