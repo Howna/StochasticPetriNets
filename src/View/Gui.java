@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public class Gui extends PApplet{
 
     private static Petrinet pn = new Petrinet("PetriNet");
-   
+
     public static void startSimulation(Petrinet petriNet){
-        pn = petriNet;        
-        PApplet.main("View.Gui");        
+        pn = petriNet;
+        PApplet.main("View.Gui");
     }
     
     public static void paintReachabilityTree(Petrinet petriNet){
@@ -32,9 +32,7 @@ public class Gui extends PApplet{
     }
     
     public static void main(String[] args){
-        
-        new MainWindow().setVisible(true);            
-        
+        new MainWindow().setVisible(true);
     }
     //------------------------- Processing ---------------------------//
 
@@ -82,9 +80,6 @@ public class Gui extends PApplet{
         drawPetriNet();
         playButton();
 
-        /*if(simulate){
-            fireTransition();
-        }*/
     }
 
     public void drawPetriNet(){
@@ -248,6 +243,8 @@ public class Gui extends PApplet{
                     }
                 }
             }
+
+
         }
 
         for(int i = 0; i < arcs.size(); i++){
@@ -331,6 +328,10 @@ public class Gui extends PApplet{
                 rect(transitions.get(i).inX + 3, transitions.get(i).inY + 17, 5, 5);
             }
         }
+
+        fill(0);
+        textSize(20);
+        text("Presione 'Q' para cerrar la ventana", width - 350, height - 10);
     }
 
     public void fireTransition(){
@@ -389,18 +390,14 @@ public class Gui extends PApplet{
     }
 
     public void mousePressed() {
-        /*if (circleOver) {
-            if(simulate == false){
-                System.out.println("Simulacion iniciada");
-                simulate = true;
-            }
-            else{
-                System.out.println("Simulacion detenida");
-                simulate = false;
-            }
-
-        }*/
         if (circleOver) {fireTransition();}
+    }
+
+    public void keyPressed() {
+        if(key == 'q' || key == 'Q'){
+            noLoop();
+            this.surface.setVisible(false);
+        }
     }
 
     public void playButton(){

@@ -26,7 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         setTitle("PROYECTO FINAL REDES DE PETRI ESTOCASTICAS");
         setLocationRelativeTo(null);        
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
