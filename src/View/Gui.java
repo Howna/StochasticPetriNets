@@ -254,8 +254,8 @@ public class Gui extends PApplet{
 
             fill(0);
             textSize(10);
-            text(t.getName(), t.inX , t.inY - 16);
-            text(p.getName(), p.inX + 10, p.inY - 16);
+            text(t.getName(), t.inX - 4, t.inY - 18);
+            text(p.getName(), p.inX + 5, p.inY - 18);
 
             if(a.direction == Arc.Direction.PLACE_TO_TRANSITION){
                 fill(255);
