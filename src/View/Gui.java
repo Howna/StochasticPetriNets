@@ -258,19 +258,38 @@ public class Gui extends PApplet{
             text(p.getName(), p.inX + 5, p.inY - 18);
 
             if(a.direction == Arc.Direction.PLACE_TO_TRANSITION){
+
                 fill(255);
                 ellipse(p.inX + 15, p.inY, 30, 30);//Place created
                 fill(0);
                 text(Integer.toString(p.getTokens()),p.inX + 12, p.inY + 3);//create tokens
 
-                drawArrow(p.outX, p.outY, t.inX, t.inY);
                 fill(0);
-                text(Integer.toString(a.getWeight()),p.outX + (t.inX - p.outX)/2, p.outY + (t.inY - p.outY)/2 - 2);
                 text("r: " + Double.toString(t.getRate()), t.inX - 10, t.inY + 35);
                 textSize(8);
                 text("t: " + new DecimalFormat("#.###").format(t.getDelayTime()), t.inX - 10, t.inY + 45);
                 fill(255);
                 rect(t.inX, t.inY - 15, 10, 30);
+
+                if(p.outX > t.outX){
+                    if(t.connectedFrom.size() > 1){
+                        fill(255);
+                        drawArrow(p.outX , p.outY, p.outX + 10, p.outY);
+                        fill(0);
+                        text(Integer.toString(a.getWeight()), p.outX + 12, p.outY - 12);
+                        fill(r,g,b);
+                        ellipse(p.outX + 15 , p.outY, 10, 10);
+                        ellipse(t.inX + 5, t.inY - 45, 10, 10);
+                        fill(0);
+                        drawArrow(t.inX + 5, t.outY - 40, t.inX + 5, t.outY - 30);
+                    }
+                }
+                else{
+                    fill(0);
+                    text(Integer.toString(a.getWeight()),p.outX + (t.inX - p.outX)/2, p.outY + (t.inY - p.outY)/2 - 2);
+                    drawArrow(p.outX, p.outY, t.inX, t.inY);
+                }
+
 
             }
             else{
